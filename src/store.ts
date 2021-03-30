@@ -2,12 +2,13 @@ import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/
 import createSagaMiddleWare from 'redux-saga'
 import counter from './features/counter/createSlice'
 import WatcherSaga from './core/sagas/rootSaga'
+import fetchServer from './core/reducers/fetchServer/createSlice'
 const sagaMiddleWare = createSagaMiddleWare()
 
-const reducer = combineReducers({ counter })
+const reducer = combineReducers({ counter, fetchServer })
 const store = configureStore({
     reducer,
-    middleware: [...getDefaultMiddleware({ thunk: false }), sagaMiddleWare]
+    middleware: [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleWare]
 })
 sagaMiddleWare.run(WatcherSaga)
 export type RootState = ReturnType<typeof store.getState>

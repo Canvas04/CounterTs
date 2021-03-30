@@ -9,5 +9,6 @@ export function* incrementAsync () {
 
 export function* watchIncrementAsync () {
     yield takeEvery('counter/incrementAsync',incrementAsync)
+    
 }
 
